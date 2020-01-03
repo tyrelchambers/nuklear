@@ -1,0 +1,19 @@
+@import './atomic/main';
+@import './animate.css';
+
+body,
+html {
+  font-family: 'Muli', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1300px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
