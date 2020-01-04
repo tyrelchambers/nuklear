@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react';
 import Index from '../Index/Index';
 import {isEmpty} from '../../helpers/isEmpty'
 import AuthRedditBtn from '../../buttons/AuthRedditBtn';
+import Authenticate from '../Authenticate/Authenticate';
 
 const App = inject("UserStore")(observer(({UserStore}) => {
   const [ loading, setLoading ] = useState(true)
@@ -54,9 +55,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
               {props => <h1  className="ta-c intro-title" style={props}>The perfect tool for a perfect product. Searchable Reddit inbox.</h1>}
             </Spring>
 
-            <AuthRedditBtn
-              text="Authenticate with Reddit"
-            />
+            <Authenticate/>
           </>
         }
 
