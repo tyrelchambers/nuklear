@@ -38,7 +38,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
   return (
     <div className="inbox-wrapper container center">
       <header className="inbox-header ">
-        <div className="p- d-f jc-sb ai-c">
+        <div className="d-f jc-sb ai-c">
           <h3 className="inbox-header-brand">
             <span>Hey, </span>
             {UserStore.redditProfile.name}
@@ -62,6 +62,13 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
         {InboxStore.openChatWindow &&
           <animated.div style={fadeIn}>
             <InboxMessage store={InboxStore}/>
+            <div className="inbox-message-send">
+              <input type="text" placeholder="Send message" className="inbox-input"/>
+              <button className="send-btn" >
+                <i className="fas fa-paper-plane"></i>
+                Send
+              </button>
+            </div>
           </animated.div>
         }
       </div>

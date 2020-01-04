@@ -21,7 +21,7 @@ class InboxStore {
   }
 
   setSelectedMessage(data) {
-    this.selectedMessage = data;
+    this.selectedMessage = data.data;
   }
 
   getSelectedMessage() {

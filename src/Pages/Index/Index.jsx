@@ -16,7 +16,8 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   }))
 
   const [fadeIn, setFadeIn, stopFadeIn] = useSpring(() => ({
-    opacity: 1
+    opacity: 0,
+    width: '100%'
   }))
   
 
@@ -26,10 +27,10 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       const inb = await getAllMessages();
       if (!inb) {
         set({opacity: 0})
+        setIsLoaded(true)
         setTimeout(() => {
-          setIsLoaded(true)
           setFadeIn({opacity: 1})
-        }, 2000);
+        }, 300);
       }
     }
 
@@ -69,7 +70,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       }
 
       {isLoaded &&
-        <animated.div style={{...fadeIn, width: '100%'}}>
+        <animated.div style={fadeIn}>
           <Inbox
             messages={msgs}
           />
