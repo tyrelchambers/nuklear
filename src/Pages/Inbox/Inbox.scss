@@ -1,0 +1,32 @@
+.inbox-wrapper {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0px 10px 30px rgba(black, 0.2);
+  position: absolute;
+  top: 10em;
+  height: 100%;
+  max-height: 900px;
+ 
+}
+.inbox-header {
+  border-bottom: 1px solid #ededed;
+}
+
+.inbox-header-brand {
+  font-weight: 700;
+  span {
+    font-weight: 300;
+  }
+}
+.inbox-body {
+  height: 100%;
+  max-height: calc(900px - 95px);
+
+}
+
+.inbox-message-list {
+  padding: 0.5em;
+  height: 100%;
+  max-height: calc(900px - 75px);
+  overflow: auto;
+}

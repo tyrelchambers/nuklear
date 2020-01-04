@@ -1,0 +1,16 @@
+.inbox-list-wrapper {
+  width: 100%;
+  align-items: center;
+  background: white;
+  display: flex;
+  transition: all 0.2s ease;
+  padding: 0 1em;
+  cursor: pointer;
+  &:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+  }
+
+  &:hover {
+    background: darken(white, 5%);
+  }
+}

@@ -35,7 +35,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
 
   return (
     <div className="app-wrapper d-f ai-c">
-      <div className="container center">
+      <div className="container center d-f fxd-c ai-c">
         {/* Shows when a user hasn't registered */}
         {!profile &&
           <>
@@ -66,9 +66,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
 
         {/* Shows when a user has registered and seen the welcome page */}
         {(UserStore.is_welcomed && UserStore.getRedditProfile()) &&
-          <div className="d-f jc-c">
-            <Index />
-          </div>
+          <Index />
         }
       </div>
     </div>

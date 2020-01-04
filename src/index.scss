@@ -6,6 +6,10 @@ html {
   font-family: 'Muli', sans-serif;
   padding: 0;
   margin: 0;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .container {
@@ -24,6 +28,17 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+i {
   color: #323F4B;
+}
+
+.form-input {
+  flex: 1;
+  margin: 0 2em;
+  background: #f7f7f7;
+  border: none;
+  padding: 1em;
+  border-radius: 3px;
+  border: 2px solid #efefef;
 }
