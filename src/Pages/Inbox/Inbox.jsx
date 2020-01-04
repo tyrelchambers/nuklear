@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import {useSpring, animated} from 'react-spring'
-
+import TextareaAutosize from 'react-textarea-autosize';
 import './Inbox.scss'
 import InboxListItem from '../../components/InboxListItem/InboxListItem';
 import InboxMessage from '../../components/InboxMessage/InboxMessage';
@@ -35,6 +35,17 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     <InboxListItem x={x} key={id} onClick={selectHandler}/>
   ))
 
+
+  function autoGrow (oField) {
+    if ( oField.scrollHeight >= 300 ) {
+      oField.style.maxHeight = "300px";
+      return false;
+    }
+    if (oField.scrollHeight > oField.clientHeight) {
+      oField.style.height = oField.scrollHeight + "px";
+    }
+  }
+
   return (
     <div className="inbox-wrapper container center">
       <header className="inbox-header ">
@@ -62,12 +73,23 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
         {InboxStore.openChatWindow &&
           <animated.div style={fadeIn}>
             <InboxMessage store={InboxStore}/>
-            <div className="inbox-message-send">
-              <input type="text" placeholder="Send message" className="inbox-input"/>
-              <button className="send-btn" >
-                <i className="fas fa-paper-plane"></i>
-                Send
-              </button>
+            <div className="inbox-message-send-wrapper">
+              <div className="inbox-message-send">
+                <TextareaAutosize
+                  type="text" 
+                  placeholder="Send message" 
+                  className="inbox-input"
+                  maxRows={10} 
+                  minRows={3}
+                  onChange={e => {
+                    autoGrow(e.target);
+                  }}
+                 />
+                <button className="send-btn" >
+                  <i className="fas fa-paper-plane"></i>
+                  Send
+                </button>
+              </div>
             </div>
           </animated.div>
         }

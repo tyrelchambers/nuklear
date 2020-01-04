@@ -28,6 +28,8 @@ const InboxMessage = ({store}) => {
   const sendHandler = (e) => {
     e.preventDefault();
   }
+
+
   return (
     <div className="inbox-message-wrapper">
       <div className="d-f jc-c fxd-c inbox-header-wrapper">

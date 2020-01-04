@@ -30,38 +30,43 @@
   font-size: 2rem;
 }
 
-.inbox-message-send {
+.inbox-message-send-wrapper {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #ededed;
-  height: 55px;
+  background-color: #504A40;
+  min-height: 55px;
   display: flex;
   align-items: center;
   padding: 0.5em 1em;
 }
 
+.inbox-message-send {
+  display: flex;
+  width: 100%;
+}
+
 .inbox-input {
   display: flex;
-  height: 100%;
   width: 100%;
-  padding: 0 1em;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;  
   border: none;
+  resize: vertical;
+  padding: 0.4em 1em;
 }
 
 .send-btn {
   display: flex;
   justify-content: center;
   width: 60px;
-  height: 100%;
   flex-direction: column;
   align-items: center;
-  background: #ABDB5E;
+  background: #FCE588;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: none;
   color:#323F4B;
   font-weight: 700;
+  padding: 1em 0;
 }
