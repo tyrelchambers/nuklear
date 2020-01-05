@@ -21,7 +21,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     opacity: 0,
     width: '100%'
   }))
-  
+
 
   useEffect(() => {
     const fn = async () => {
@@ -71,7 +71,6 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   }
 
   const sortInbox = (data,  sortVal) => {
-    console.log(sortVal)
     const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).name;
     return data.filter(x => {
       if (!x.data.author) return null;

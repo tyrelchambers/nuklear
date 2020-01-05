@@ -8,6 +8,8 @@ import InboxMessage from '../../components/InboxMessage/InboxMessage';
 import Back from '../../components/Back/Back';
 
 const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data}) => {
+  const [ endIndex, setEndIndex ] = useState(40);
+
   const [props, set, stop] = useSpring(() => ({
     opacity: 1,
     config: {
@@ -32,7 +34,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     return InboxStore.setSelectedMessage(msg);
   }
 
-  const messages = data.map((x,id) => (
+  const messages = data.slice(0, endIndex).map((x,id) => (
     <InboxListItem x={x} key={id} onClick={selectHandler}/>
   ))
 
@@ -46,7 +48,28 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     }, 101);
   }
 
+  useEffect(() => {
+    const toScroll = document.querySelector('#inbox-message-list');
+    toScroll.addEventListener('scroll', infiniteScroll);
+    
+    return () => {
+      toScroll.removeEventListener('scroll', infiniteScroll);
+    };
+  }, [endIndex])
 
+  const infiniteScroll = (c) => {
+    const list = document.querySelector('#track');
+    if ( isInViewport(list) ) {
+      setEndIndex(endIndex + 40);
+    }
+  }
+  
+  const isInViewport = function (elem) {
+    const bounding = elem.getBoundingClientRect();
+    return (
+        bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
+    );
+  };
 
   return (
     <div className="inbox-wrapper container center">
@@ -76,8 +99,10 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
       <div className="inbox-body">
         {!InboxStore.openChatWindow && 
-          <animated.div style={props} className="inbox-message-list">
-            {messages}
+          <animated.div style={props} className="inbox-message-list" id="inbox-message-list">
+            <div className="d-f fxd-c" id="track">
+              {messages}
+            </div>
           </animated.div>
         }
 
