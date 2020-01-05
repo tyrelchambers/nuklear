@@ -6,9 +6,11 @@ import './Inbox.scss'
 import InboxListItem from '../../components/InboxListItem/InboxListItem';
 import InboxMessage from '../../components/InboxMessage/InboxMessage';
 import Back from '../../components/Back/Back';
+import Axios from 'axios';
 
 const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data, unread}) => {
   const [ endIndex, setEndIndex ] = useState(40);
+  const access_token = window.localStorage.getItem("access_token");
 
   const [props, set, stop] = useSpring(() => ({
     opacity: 1,
@@ -25,6 +27,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
   }))
 
   const selectHandler = (msg) => {
+    setMsgAsRead(msg.data.name)
     InboxStore.setOpenChatWindow(true)
     set({opacity: 0})
 
@@ -32,6 +35,22 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
       setFadeIn({opacity: 1})
     }, 101);
     return InboxStore.setSelectedMessage(msg);
+  }
+
+  const setMsgAsRead = async (id) => {
+    const body = new FormData();
+    body.set('id', id)
+
+    const _ = await Axios.post('https://oauth.reddit.com/api/read_message', body, 
+    {
+      headers: {
+        "Authorization": `bearer ${access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+
+      }
+    })
+    .then(res => res.data);
+    console.log(_)
   }
 
 
