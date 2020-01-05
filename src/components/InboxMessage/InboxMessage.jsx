@@ -4,7 +4,7 @@ import Chat from '../Chat/Chat';
 import { isEmpty } from '../../helpers/isEmpty';
 import moment from 'moment';
 import dateFns from 'date-fns'
-const InboxMessage = ({store}) => {
+const InboxMessage = ({store, newMsg}) => {
   const [ data, setData ] = useState([])
   const [ loading, setLoading ] = useState(true)
   const msgArr = [];
@@ -23,12 +23,10 @@ const InboxMessage = ({store}) => {
     });
   }
 
-  msgArr.push(data)
-
-  const sendHandler = (e) => {
-    e.preventDefault();
+  if (newMsg) {
+    msgArr.push(newMsg)
   }
-
+  msgArr.push(data)
 
   return (
     <div className="inbox-message-wrapper">
@@ -39,10 +37,10 @@ const InboxMessage = ({store}) => {
         </div>
         <h2 className="inbox-subject">{data.subject}</h2>
       </div>
-
       <div className="inbox-message-body">
         <Chat
           data={msgArr}
+          newMsg={newMsg}
         />
       </div>
     </div>

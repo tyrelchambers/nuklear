@@ -11,7 +11,8 @@ import Axios from 'axios';
 const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data, unread}) => {
   const [ endIndex, setEndIndex ] = useState(40);
   const access_token = window.localStorage.getItem("access_token");
-
+  const [ chatMsg, setChatMsg ] = useState("");
+  const [ newMsg, setNewMsg ] = useState();
   const [props, set, stop] = useSpring(() => ({
     opacity: 1,
     config: {
@@ -52,7 +53,6 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
       }
     })
     .then(res => res.data);
-    console.log(_)
   }
 
 
@@ -87,7 +87,33 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     return (
         bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
     );
-  };
+  }; 
+  
+  const submitHandler = async e => {
+    e.preventDefault();
+
+    const thing_id = InboxStore.selectedMessage.name;
+    const text = chatMsg;
+
+    if ( !text ) return;
+
+    const body = new FormData();
+    body.set('thing_id', thing_id);
+    body.set("text", text);
+    body.set("return_rtjson", true);
+
+    Axios.post(`https://oauth.reddit.com/api/comment`, body, {
+      headers: {
+        "Authorization":  `bearer ${access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(res => {
+      setNewMsg(res.data.jquery[30][3][0][0].data);
+      setChatMsg("");
+    })
+    .catch(console.log);
+  }
 
 
   const messages = data.slice(0, endIndex).map((x,id) => (
@@ -131,7 +157,10 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
         {InboxStore.openChatWindow &&
           <animated.div style={fadeIn}>
-            <InboxMessage store={InboxStore}/>
+            <InboxMessage 
+              store={InboxStore}
+              newMsg={newMsg}  
+            />
             <div className="inbox-message-send-wrapper">
               <div className="inbox-message-send">
                 <TextareaAutosize
@@ -140,9 +169,10 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
                   className="inbox-input"
                   maxRows={10} 
                   minRows={3}
- 
+                  onChange={e => setChatMsg(e.target.value)}
+                  value={chatMsg}
                  />
-                <button className="send-btn" >
+                <button className="send-btn" onClick={submitHandler}>
                   <i className="fas fa-paper-plane"></i>
                   Send
                 </button>

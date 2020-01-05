@@ -1,10 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import dateFns from 'date-fns'
 import moment from 'moment';
 import './Chat.scss'
-const Chat = ({data}) => {
+
+const Chat = ({data, newMsg}) => {
+  const [ chatLogs, setChatLogs] = useState([]);
+  
+  useEffect(() => {
+    setChatLogs([...data]);
+  }, [data]);
+
+  useEffect(() => {
+    if ( newMsg ) {
+      setChatLogs([...chatLogs, newMsg])
+    }
+  }, [newMsg]);
+
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).name;
-  const chats = data.sort((a, b) => {
+  const chats = chatLogs.sort((a, b) => {
     return a.created - b.created;
   }).map((x, id) => {
     const isCurrent = x.author === currentUser.replace(/\s/g, "") ? true : false;
@@ -28,6 +41,7 @@ const Chat = ({data}) => {
 
   return (
     <div className="chat-bubble">
+      {console.log(chatLogs)}
       <div>
         {chats}
       </div>
