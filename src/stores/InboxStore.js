@@ -1,5 +1,6 @@
   
 import { observable, action, decorate, toJS } from 'mobx';
+import { isEmpty } from '../helpers/isEmpty';
 
 class InboxStore {
   messages = []
@@ -25,7 +26,7 @@ class InboxStore {
   }
 
   getSelectedMessage() {
-    return toJS(this.selectedMessage);
+    return isEmpty(this.selectedMessage) ? null : this.selectedMessage;
   }
 }
 

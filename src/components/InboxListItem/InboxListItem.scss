@@ -13,4 +13,16 @@
   &:hover {
     background: darken(white, 5%);
   }
+
+  i {
+    font-size: 0.5rem;
+    margin-right: 2em;
+    color: #e8e8e8;
+  }
+}
+
+.inbox-list-light {
+  color: #727272;
+  font-size: 0.9rem;
+  font-weight: 300;
 }

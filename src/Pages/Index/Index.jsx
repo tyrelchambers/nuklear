@@ -10,6 +10,8 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   const [ isLoaded, setIsLoaded ] = useState(false)
   const [ msgs, setMsgs ] = useState([]);
   const [ msgsRetrieved, setMsgsRetrieved ] = useState(0);
+  const [ sortVal, setSortVal ] = useState("");
+
   const access_token = window.localStorage.getItem("access_token");
   const [props, set, stop] = useSpring(() => ({
     opacity: 1
@@ -25,6 +27,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     const fn = async () => {
       
       const inb = await getAllMessages();
+      setMsgs([...InboxStore.getMessages()])
       if (!inb) {
         set({opacity: 0})
         setIsLoaded(true)
@@ -37,10 +40,19 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     fn();
   }, [])
 
+  useEffect(() => {
+    if ( sortVal && sortVal.length >= 3) {
+      const sort = sortInbox(InboxStore.getMessages(), sortVal);
+      setMsgs(sort);
+    } else {
+      setMsgs(InboxStore.getMessages())
+    }
+  }, [sortVal]);
+
   const getAllMessages = async () => {
     let after = ""
     let count = 0;
-    const posts = []
+   
     for ( let i = 0; after !== null; i++ ) {
       const _ = await Axios.get(`https://oauth.reddit.com/message/messages?after=${after}&count=100`, {
         headers: {
@@ -57,6 +69,18 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       setMsgsRetrieved(count)
     }
   }
+
+  const sortInbox = (data,  sortVal) => {
+    console.log(sortVal)
+    const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).name;
+    return data.filter(x => {
+      if (!x.data.author) return null;
+      const isCurrent = x.data.author === currentUser.replace(/\s/g, "") ? true : false;
+      const dest = x.data.dest.toLowerCase();
+      const author = x.data.author.toLowerCase();
+      return isCurrent ? dest.includes(sortVal) : author.includes(sortVal);
+    })
+  }
   
   return (
     <>
@@ -72,7 +96,8 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       {isLoaded &&
         <animated.div style={fadeIn}>
           <Inbox
-            messages={msgs}
+            data={msgs}
+            setSortVal={v => setSortVal(v)}
           />
         </animated.div>
       }
