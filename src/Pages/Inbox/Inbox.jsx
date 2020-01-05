@@ -7,7 +7,7 @@ import InboxListItem from '../../components/InboxListItem/InboxListItem';
 import InboxMessage from '../../components/InboxMessage/InboxMessage';
 import Back from '../../components/Back/Back';
 
-const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data}) => {
+const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data, unread}) => {
   const [ endIndex, setEndIndex ] = useState(40);
 
   const [props, set, stop] = useSpring(() => ({
@@ -34,9 +34,6 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     return InboxStore.setSelectedMessage(msg);
   }
 
-  const messages = data.slice(0, endIndex).map((x,id) => (
-    <InboxListItem x={x} key={id} onClick={selectHandler}/>
-  ))
 
   const backHandler = () => {
     set({opacity: 1})
@@ -70,6 +67,11 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
         bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
     );
   };
+
+
+  const messages = data.slice(0, endIndex).map((x,id) => (
+    <InboxListItem x={x} key={id} onClick={selectHandler} unread={unread}/>
+  ))
 
   return (
     <div className="inbox-wrapper container center">

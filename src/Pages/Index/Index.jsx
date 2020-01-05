@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSpring, animated} from 'react-spring'
 import LoadingInbox from '../../components/LoadingInbox/LoadingInbox';
-import { getInbox } from '../../api/get';
 import Axios from 'axios';
 import Inbox from '../Inbox/Inbox';
 import { inject, observer } from 'mobx-react';
@@ -11,7 +10,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   const [ msgs, setMsgs ] = useState([]);
   const [ msgsRetrieved, setMsgsRetrieved ] = useState(0);
   const [ sortVal, setSortVal ] = useState("");
-
+  const [ unreadMsg, setUnreadMsg ] = useState([]);
   const access_token = window.localStorage.getItem("access_token");
   const [props, set, stop] = useSpring(() => ({
     opacity: 1
@@ -27,8 +26,10 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     const fn = async () => {
       
       const inb = await getAllMessages();
+      const unread = await getUnreadMessages();
+      setUnreadMsg([...unread.data.children])
       setMsgs([...InboxStore.getMessages()])
-      if (!inb) {
+      if (!inb) { 
         set({opacity: 0})
         setIsLoaded(true)
         setTimeout(() => {
@@ -48,6 +49,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       setMsgs(InboxStore.getMessages())
     }
   }, [sortVal]);
+
 
   const getAllMessages = async () => {
     let after = ""
@@ -70,6 +72,16 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     }
   }
 
+  const getUnreadMessages = async () => {
+    const _ = await Axios.get('https://oauth.reddit.com/message/unread', {
+      headers: {
+        "Authorization": `bearer ${access_token}`
+      }
+    })
+    .then(res => res.data);
+    return _;
+  }
+
   const sortInbox = (data,  sortVal) => {
     const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).name;
     return data.filter(x => {
@@ -80,6 +92,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       return isCurrent ? dest.includes(sortVal) : author.includes(sortVal);
     })
   }
+
   
   return (
     <>
@@ -91,12 +104,12 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
           <h4 className="intro-title">{msgsRetrieved} messages retrieved</h4>
         </animated.div>
       }
-
       {isLoaded &&
         <animated.div style={fadeIn}>
           <Inbox
             data={msgs}
             setSortVal={v => setSortVal(v)}
+            unread={unreadMsg}
           />
         </animated.div>
       }
