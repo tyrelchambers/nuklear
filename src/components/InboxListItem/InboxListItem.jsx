@@ -3,7 +3,6 @@ import './InboxListItem.scss'
 
 const InboxListItem = ({x, onClick, unread}) => {
   const isUnread = unread.filter(v => {
-
     if (x.data.replies) {
       const replies = x.data.replies.data.children[x.data.replies.data.children.length - 1].data.id;
 

@@ -4,6 +4,7 @@ import LoadingInbox from '../../components/LoadingInbox/LoadingInbox';
 import Axios from 'axios';
 import Inbox from '../Inbox/Inbox';
 import { inject, observer } from 'mobx-react';
+import './Index.scss'
 
 const Index = inject("InboxStore")(observer(({InboxStore}) => {
   const [ isLoaded, setIsLoaded ] = useState(false)
@@ -101,7 +102,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
           <LoadingInbox
             text="Loading your Inbox"
           />
-          <h4 className="intro-title">{msgsRetrieved} messages retrieved</h4>
+          <h4 className="intro-title retrieved"><span>{msgsRetrieved}</span> messages retrieved</h4>
         </animated.div>
       }
       {isLoaded &&

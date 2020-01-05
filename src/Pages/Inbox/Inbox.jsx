@@ -28,6 +28,9 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
   const selectHandler = (msg) => {
     setMsgAsRead(msg.data.name)
+    if (msg.data.replies) {
+      msg.data.replies.data.children.map(x => setMsgAsRead(x.data.name))
+    }
     InboxStore.setOpenChatWindow(true)
     set({opacity: 0})
 
@@ -40,7 +43,6 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
   const setMsgAsRead = async (id) => {
     const body = new FormData();
     body.set('id', id)
-
     const _ = await Axios.post('https://oauth.reddit.com/api/read_message', body, 
     {
       headers: {
