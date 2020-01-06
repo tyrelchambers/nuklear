@@ -94,13 +94,46 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
     })
   }
 
+
+
+  // const saveToDatabase = async (msgs) => {
+  //   const newMsgs = []; 
+  //   msgs.map(x => newMsgs.push(x.data));
+    
+  //   await newMsgs.map(x => {
+  //     return window.db.inbox_messages.add({
+  //       first_message: x.first_message,
+  //       first_message_name: x.first_message_name,
+  //       replies: x.replies,
+  //       id: x.id,
+  //       subject: x.subject,
+  //       author: x.author,
+  //       body: x.body,
+  //       dest: x.dest,
+  //       name: x.name,
+  //       created: x.created
+  //     });
+  //   });
+  //   return true;
+  // }
+
+  // const deleteMessagesFromDatabase = () => {
+  //   const db = window.db;
+  //   db.posts.clear().then().catch();
+  // }
+
+  // const getMessagesFromDatabase = async () => {
+  //   const db = window.db;
+  //   const posts = await db.posts.toArray();
+  //   return posts;
+  // }
   
   return (
     <>
       {!isLoaded &&
         <animated.div style={props}>
           <LoadingInbox
-            text="Loading your Inbox"
+            text="Loading your inbox"
           />
           <h4 className="intro-title retrieved"><span>{msgsRetrieved}</span> messages retrieved</h4>
         </animated.div>

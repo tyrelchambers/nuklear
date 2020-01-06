@@ -4,7 +4,7 @@ const db = new Dexie("Reddex");
 
 window.db = db;
 db.version(1).stores({
-  inbox_message: "++id, first_message, first_message_name, replies, id, subject, author, new, body, dest, name, created"
+  inbox_messages: "++id, first_message, first_message_name, replies, id, subject, author, new, body, dest, name, created"
 });
 
 export default db;

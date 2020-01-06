@@ -43,7 +43,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
               config={config.slow}
               from={{ opacity: 0, transform: 'translateY(-50px)' }}
               to={{ opacity: 1, transform: 'translateY(0px)' }}>
-              {props => <h1  className="ta-c big-title" style={props}>Welcome to Reddify!</h1>}
+              {props => <h1  className="ta-c big-title" style={props}>Welcome to Nuklear!</h1>}
             </Spring>
             <Spring
               config={{

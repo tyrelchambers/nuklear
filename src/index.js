@@ -9,7 +9,7 @@ import UserStore from './stores/UserStore'
 import { renewRefreshToken } from './helpers/renewRefreshTokens';
 import { getCurrentAuthenticatedUser } from './helpers/getCurrentRedditProfile';
 import InboxStore from './stores/InboxStore'
-
+import db from './Database/database'
 const stores = {
   UserStore,
   InboxStore
