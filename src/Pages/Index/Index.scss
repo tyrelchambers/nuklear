@@ -16,3 +16,9 @@
     margin-right: 1em;
   }
 }
+
+@media screen and (max-width:375px) {
+  .retrieved {
+    font-size: 4vw;
+  }
+}

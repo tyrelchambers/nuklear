@@ -42,3 +42,10 @@ i {
   border-radius: 3px;
   border: 2px solid #efefef;
 }
+
+@media screen and (max-width: 600px) {
+  .form-input {
+    margin: 0;
+    margin-right: 1em;
+  }
+}

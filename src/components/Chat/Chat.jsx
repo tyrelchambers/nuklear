@@ -41,7 +41,6 @@ const Chat = ({data, newMsg}) => {
 
   return (
     <div className="chat-bubble">
-      {console.log(chatLogs)}
       <div>
         {chats}
       </div>

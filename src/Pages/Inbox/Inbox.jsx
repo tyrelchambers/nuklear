@@ -22,6 +22,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
   const [fadeIn, setFadeIn, _] = useSpring(() => ({
     opacity: 0,
+    position: 'relative',
     config: {
       duration: 100
     }
@@ -124,7 +125,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     <div className="inbox-wrapper container center">
       <header className="inbox-header ">
         <div className="d-f jc-sb ai-c">
-          <div className="d-f ai-c">
+          <div className="d-f ai-c inbox-brand-wrapper">
             {InboxStore.openChatWindow &&
               <animated.div style={fadeIn}>
                 <Back
@@ -138,10 +139,12 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
             </h3>
           </div>
 
-          <input type="text" placeholder="Search inbox by sender..." className="form-input"  onChange={e => setSortVal(e.target.value.toLowerCase())}/>
+          <div className="d-f ai-c w-100pr">
+            <input type="text" placeholder="Search inbox by sender..." className="form-input"  onChange={e => setSortVal(e.target.value.toLowerCase())}/>
 
-          <div className="inbox-header-actions">
-            <i className="fas fa-cog"></i>
+            <div className="inbox-header-actions">
+              <i className="fas fa-cog"></i>
+            </div>
           </div>
         </div>
       </header>

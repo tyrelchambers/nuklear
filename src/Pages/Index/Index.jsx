@@ -31,9 +31,9 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       setUnreadMsg([...unread.data.children])
       setMsgs([...InboxStore.getMessages()])
       if (!inb) { 
-        set({opacity: 0})
         setIsLoaded(true)
         setTimeout(() => {
+          set({opacity: 0})
           setFadeIn({opacity: 1})
         }, 300);
       }
@@ -131,7 +131,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   return (
     <>
       {!isLoaded &&
-        <animated.div style={props}>
+        <animated.div >
           <LoadingInbox
             text="Loading your inbox"
           />

@@ -4,8 +4,6 @@ import {Spring, config} from 'react-spring/renderprops'
 import {useSpring, animated} from 'react-spring'
 import { inject, observer } from 'mobx-react';
 import Index from '../Index/Index';
-import {isEmpty} from '../../helpers/isEmpty'
-import AuthRedditBtn from '../../buttons/AuthRedditBtn';
 import Authenticate from '../Authenticate/Authenticate';
 
 const App = inject("UserStore")(observer(({UserStore}) => {
@@ -16,8 +14,12 @@ const App = inject("UserStore")(observer(({UserStore}) => {
     setProfile(UserStore.getRedditProfile())
     setLoading(false)
 
+
   }, [])
 
+  setTimeout(() => {
+    UserStore.setIsWelcomed(true)
+  }, 3000);
   const props = useSpring({
     to: async (next, cancel) => {
       await next({opacity: 1, transform: 'translateY(0px)'})
@@ -35,7 +37,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
 
   return (
     <div className="app-wrapper d-f ai-c">
-      <div className="container center d-f fxd-c ai-c">
+      <div className="container center d-f fxd-c ai-c p-- ">
         {/* Shows when a user hasn't registered */}
         {!profile &&
           <>
@@ -60,7 +62,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
         }
 
         {/* Shows when a user has registered for the first time */}
-        {(!UserStore.is_welcomed && UserStore.getRedditProfile()) &&
+        {(!UserStore.is_welcomed) &&
           <animated.h1 style={props} className="ta-c big-title">Welcome aboard, {profile.name}!</animated.h1>
         }
 

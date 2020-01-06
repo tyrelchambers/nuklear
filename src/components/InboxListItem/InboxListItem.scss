@@ -2,7 +2,8 @@
   width: 100%;
   align-items: center;
   background: white;
-  display: flex;
+  display: grid;
+  grid-template-columns: 200px 20px 1fr;
   transition: all 0.2s ease;
   padding: 0 1em;
   cursor: pointer;
@@ -23,10 +24,38 @@
   .fa-circle.red {
     color: #D64545;
   }
+
+  p {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  h5 {
+    word-break: break-all;
+  }
+
 }
 
 .inbox-list-light {
   color: #727272;
   font-size: 0.9rem;
   font-weight: 300;
+}
+
+@media screen and (max-width: 425px) {
+  .inbox-list-wrapper {
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    i {
+      display: none;
+    }
+
+    h5 {
+      margin: 0.5em 0;
+      font-size: 1rem;
+    }
+  }
 }

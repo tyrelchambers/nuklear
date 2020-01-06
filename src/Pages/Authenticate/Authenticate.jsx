@@ -17,10 +17,11 @@ const Authenticate = inject("UserStore")(observer(({UserStore}) => {
           window.localStorage.setItem("access_token", res.access_token)
           window.localStorage.setItem("refresh_token", res.refresh_token)
         }
+        params.delete("code")
+        params.delete("state")
+        window.location.search = ""
       }).catch(console.log);
-      params.delete("code")
-      params.delete("state")
-      window.location.search = ""
+ 
     } 
   }
 

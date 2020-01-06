@@ -70,3 +70,15 @@
   font-weight: 700;
   padding: 1em 0;
 }
+
+@media screen and (max-width: 600px) {
+  .inbox-header > div {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .inbox-subject {
+    font-size: 100%;
+  }
+}
