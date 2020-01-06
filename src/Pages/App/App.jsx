@@ -62,7 +62,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
         }
 
         {/* Shows when a user has registered for the first time */}
-        {(!UserStore.is_welcomed) &&
+        {(!UserStore.is_welcomed && UserStore.getRedditProfile()) &&
           <animated.h1 style={props} className="ta-c big-title">Welcome aboard, {profile.name}!</animated.h1>
         }
 
