@@ -6,6 +6,7 @@
   grid-template-columns: 200px 20px 1fr;
   transition: all 0.2s ease;
   padding: 0 1em;
+  overflow-x: hidden;
   cursor: pointer;
   &:not(:last-child) {
     border-bottom: 1px solid #ededed;
