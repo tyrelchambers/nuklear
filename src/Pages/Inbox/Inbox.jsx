@@ -7,6 +7,7 @@ import InboxListItem from '../../components/InboxListItem/InboxListItem';
 import InboxMessage from '../../components/InboxMessage/InboxMessage';
 import Back from '../../components/Back/Back';
 import Axios from 'axios';
+import stickybits from 'stickybits'
 
 const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data, unread}) => {
   const [ endIndex, setEndIndex ] = useState(40);
@@ -27,6 +28,15 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
       duration: 100
     }
   }))
+
+
+  useEffect(() => {
+    document.addEventListener('scroll', infiniteScroll);
+    return () => {
+      document.removeEventListener('scroll', infiniteScroll);
+    };
+  }, [endIndex])
+
 
   const selectHandler = (msg) => {
     setMsgAsRead(msg.data.name)
@@ -67,17 +77,8 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     }, 101);
   }
 
-  useEffect(() => {
-    const toScroll = document.querySelector('#inbox-message-list');
-    toScroll.addEventListener('scroll', infiniteScroll);
-    
-    return () => {
-      toScroll.removeEventListener('scroll', infiniteScroll);
-    };
-  }, [endIndex])
-
   const infiniteScroll = (c) => {
-    const list = document.querySelector('#track');
+    const list = document.querySelector('#inbox-message-list');
     if ( isInViewport(list) ) {
       setEndIndex(endIndex + 40);
     }
@@ -86,7 +87,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
   const isInViewport = function (elem) {
     const bounding = elem.getBoundingClientRect();
     return (
-        bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
+        bounding.bottom <= ((window.innerHeight + 100) || document.documentElement.clientHeight)
     );
   }; 
   
@@ -151,8 +152,8 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
       <div className="inbox-body">
         {!InboxStore.openChatWindow && 
-          <animated.div style={props} className="inbox-message-list" id="inbox-message-list">
-            <div className="d-f fxd-c" id="track">
+          <animated.div style={props} className="inbox-message-list" id="inbox-message-list" >
+            <div className="d-f fxd-c" >
               {messages}
             </div>
           </animated.div>

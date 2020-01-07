@@ -36,7 +36,7 @@ const App = inject("UserStore")(observer(({UserStore}) => {
   if (loading) return null;
 
   return (
-    <div className="app-wrapper d-f ai-c">
+    <div className="app-wrapper d-f ai-c" id="track">
       <div className="container center d-f fxd-c ai-c p-- ">
         {/* Shows when a user hasn't registered */}
         {!profile &&

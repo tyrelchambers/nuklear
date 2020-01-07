@@ -3,9 +3,12 @@
   border-radius: 3px;
   box-shadow: 0px 10px 30px rgba(black, 0.2);
   top: 10em; 
+  display: block;
 }
 .inbox-header {
   border-bottom: 1px solid #ededed;
+  position: sticky;
+  top: 0;
 }
 
 .inbox-header-brand {
@@ -16,16 +19,13 @@
   }
 }
 .inbox-body {
-  height: 100%;
-  max-height: 900px;
-
+  display: block;
 }
 
 .inbox-message-list {
   padding: 0.5em;
   height: 100%;
-  max-height: calc(900px - 75px);
-  overflow: auto;
+
 }
 
 @media screen and (max-width: 375px) {
