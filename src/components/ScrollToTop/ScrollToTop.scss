@@ -1,0 +1,18 @@
+.scroll-to-top-wrapper {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  font-size: 1.5rem;
+
+  i {
+    color: white;
+    text-shadow: 0px 2px 15px rgba(black, 0.3);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .scroll-to-top-wrapper {
+    i {
+      color: #2b2b2b;
+    }
+  }
+}

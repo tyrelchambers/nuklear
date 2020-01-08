@@ -5,8 +5,9 @@ import {useSpring, animated} from 'react-spring'
 import { inject, observer } from 'mobx-react';
 import Index from '../Index/Index';
 import Authenticate from '../Authenticate/Authenticate';
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop';
 
-const App = inject("UserStore")(observer(({UserStore}) => {
+const App = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore}) => {
   const [ loading, setLoading ] = useState(true)
   const [ profile, setProfile ] = useState();
 
@@ -68,7 +69,13 @@ const App = inject("UserStore")(observer(({UserStore}) => {
 
         {/* Shows when a user has registered and seen the welcome page */}
         {(UserStore.is_welcomed && UserStore.getRedditProfile()) &&
-          <Index />
+          <>
+            <Index />
+            {InboxStore.messages.length > 0 &&
+              <ScrollToTop />
+
+            }
+          </>
         }
       </div>
     </div>

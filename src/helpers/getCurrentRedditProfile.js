@@ -1,5 +1,4 @@
 import Axios from "axios"
-import UserStore from '../stores/UserStore'
 
 export const getCurrentAuthenticatedUser = (token) => {
 

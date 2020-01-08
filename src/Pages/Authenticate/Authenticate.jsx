@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import AuthRedditBtn from '../../buttons/AuthRedditBtn';
 import { inject, observer } from 'mobx-react';
 
