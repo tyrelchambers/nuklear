@@ -82,8 +82,10 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
   const infiniteScroll = (c) => {
     const list = document.querySelector('#inbox-message-list');
-    if ( isInViewport(list) ) {
-      setEndIndex(endIndex + 40);
+    if ( list ) {
+      if ( isInViewport(list) ) {
+        setEndIndex(endIndex + 40);
+      }
     }
   }
   
