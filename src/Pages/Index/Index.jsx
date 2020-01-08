@@ -103,7 +103,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
   return (
     <>
       {!isLoaded &&
-        <animated.div >
+        <animated.div style={props}>
           <LoadingInbox
             text="Loading your inbox"
           />

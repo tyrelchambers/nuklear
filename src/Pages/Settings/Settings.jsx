@@ -7,7 +7,7 @@ const Settings = () => {
       <h3>Settings</h3>
 
       <div className="d-f ai-c setting-item" onClick={() => window.location.reload()}>
-        <i class="fas fa-redo-alt mr-"></i>
+        <i className="fas fa-redo-alt mr-"></i>
         <p>Reload messages</p>
       </div>
     </div>

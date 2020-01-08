@@ -75,8 +75,8 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
     setFadeIn({opacity: 0})
 
     setTimeout(() => {
-    InboxStore.setOpenChatWindow(false);
-
+      InboxStore.setOpenChatWindow(false);
+      setOpenOptions(false)
     }, 101);
   }
 
@@ -132,7 +132,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
       <header className="inbox-header ">
         <div className="d-f jc-sb ai-c stick-header">
           <div className="d-f ai-c inbox-brand-wrapper">
-            {InboxStore.openChatWindow &&
+            {(InboxStore.openChatWindow || openOptions) &&
               <animated.div style={fadeIn}>
                 <Back
                   backHandler={backHandler}
