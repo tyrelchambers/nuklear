@@ -8,7 +8,6 @@ import InboxMessage from '../../components/InboxMessage/InboxMessage';
 import Back from '../../components/Back/Back';
 import Axios from 'axios';
 import stickybits from 'stickybits'
-
 const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore, setSortVal, data, unread}) => {
   const [ endIndex, setEndIndex ] = useState(40);
   const access_token = window.localStorage.getItem("access_token");
@@ -32,6 +31,8 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);
+    stickybits('.inbox-header', {useStickyClasses: true});
+
     return () => {
       document.removeEventListener('scroll', infiniteScroll);
     };
@@ -125,7 +126,7 @@ const Inbox = inject("UserStore", "InboxStore")(observer(({UserStore, InboxStore
   return (
     <div className="inbox-wrapper container center">
       <header className="inbox-header ">
-        <div className="d-f jc-sb ai-c">
+        <div className="d-f jc-sb ai-c stick-header">
           <div className="d-f ai-c inbox-brand-wrapper">
             {InboxStore.openChatWindow &&
               <animated.div style={fadeIn}>
