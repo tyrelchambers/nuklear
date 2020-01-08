@@ -6,7 +6,10 @@ html {
   font-family: 'Muli', sans-serif;
   padding: 0;
   margin: 0;
-  
+  background: rgb(31,41,51);
+  background: linear-gradient(45deg, rgba(31,41,51,1) 0%, rgba(207,17,36,1) 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   * {
     box-sizing: border-box;
   }

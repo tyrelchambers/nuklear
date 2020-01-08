@@ -1,0 +1,20 @@
+.settings-wrapper {
+  padding: 1em 2em;
+}
+
+.setting-item {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  p {
+    margin: 0;
+  }
+
+  &:hover {
+    p,
+    i {
+      color: #A39E93;
+    }
+  
+  }
+}
+

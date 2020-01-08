@@ -19,7 +19,13 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
 
   const [fadeIn, setFadeIn, stopFadeIn] = useSpring(() => ({
     opacity: 0,
-    width: '100%'
+    width: '100%',
+    position: 'absolute',
+    top: '1em',
+    left: "50%",
+    transform: 'translateX(-50%)',
+    padding: '0.3em'
+
   }))
 
 
@@ -93,40 +99,6 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
       return isCurrent ? dest.includes(sortVal) : author.includes(sortVal);
     })
   }
-
-
-
-  // const saveToDatabase = async (msgs) => {
-  //   const newMsgs = []; 
-  //   msgs.map(x => newMsgs.push(x.data));
-    
-  //   await newMsgs.map(x => {
-  //     return window.db.inbox_messages.add({
-  //       first_message: x.first_message,
-  //       first_message_name: x.first_message_name,
-  //       replies: x.replies,
-  //       id: x.id,
-  //       subject: x.subject,
-  //       author: x.author,
-  //       body: x.body,
-  //       dest: x.dest,
-  //       name: x.name,
-  //       created: x.created
-  //     });
-  //   });
-  //   return true;
-  // }
-
-  // const deleteMessagesFromDatabase = () => {
-  //   const db = window.db;
-  //   db.posts.clear().then().catch();
-  // }
-
-  // const getMessagesFromDatabase = async () => {
-  //   const db = window.db;
-  //   const posts = await db.posts.toArray();
-  //   return posts;
-  // }
   
   return (
     <>
@@ -147,6 +119,7 @@ const Index = inject("InboxStore")(observer(({InboxStore}) => {
           />
         </animated.div>
       }
+
     </>
   );
 }));

@@ -9,6 +9,8 @@
   background: white;
   transition: all 0.2s ease;
   top: 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .inbox-header-brand {
@@ -26,6 +28,17 @@
   padding: 0.5em;
   height: 100%;
 
+}
+
+.header-settings {
+  padding: 0.3em;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+
+}
+
+.header-settings:hover {
+  background-color: #efefef;
 }
 .inbox-header.js-is-sticky--change {
   box-shadow: 0px 2px 15px rgba(black, 0.2);
